@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+for d in */; do
+    # Will print */ if no directories are available
+    echo "installing $d"
+    stow -R $d
+done
