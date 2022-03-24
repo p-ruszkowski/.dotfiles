@@ -28,6 +28,7 @@ set cursorline
 set encoding=UTF-8
 
 call plug#begin('~/.vim/plugged')
+ Plug 'rust-lang/rust.vim'
  Plug 'scrooloose/nerdtree'
  Plug 'mhinz/vim-startify'
  Plug 'scrooloose/nerdcommenter'
@@ -50,7 +51,8 @@ colorscheme onehalfdark
 
 :let mapleader = " "
 
- " Navigate through panes
+
+"Navigate through panes
  map <leader>h :wincmd h<CR>
  map <leader>j :wincmd j<CR>
  map <leader>k :wincmd k<CR>
