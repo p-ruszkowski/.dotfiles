@@ -29,6 +29,7 @@ set encoding=UTF-8
 
 call plug#begin('~/.vim/plugged')
  Plug 'rust-lang/rust.vim'
+ Plug 'jacoborus/tender.vim'
  Plug 'scrooloose/nerdtree'
  Plug 'mhinz/vim-startify'
  Plug 'scrooloose/nerdcommenter'
@@ -46,8 +47,14 @@ call plug#begin('~/.vim/plugged')
  Plug 'tpope/vim-fugitive'
 call plug#end()
 
-let g:tokyonight_style = "night"
-colorscheme onehalfdark
+" let g:tokyonight_style = "night"
+" colorscheme onehalfdark
+
+if (has("termguiclors"))
+ set termguicolors
+endif
+syntax enable
+colorscheme tender
 
 :let mapleader = " "
 
