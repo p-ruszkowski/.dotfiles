@@ -100,3 +100,4 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias nvim='/home/ppr/nvim.appimage'
+cd ~
