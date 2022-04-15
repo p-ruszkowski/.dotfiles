@@ -4,9 +4,16 @@ let g:startify_custom_header = [
 \ '  \ \ \-.  \  \ \  __\   \ \ \/\ \  \ \ \`/   \ \ \  \ \ \-./\ \   ',  
 \ '   \ \_\\"\_\  \ \_____\  \ \_____\  \ \__|    \ \_\  \ \_\ \ \_\  ', 
 \ '    \/_/ \/_/   \/_____/   \/_____/   \/_/      \/_/   \/_/  \/_/  ', 
-\ 'dotfile by n3rd2',
 \ '',
+\ '                                           - - - > dotfile by n3rd2',
 \ ]
+
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
 
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
@@ -17,6 +24,12 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'mhinz/vim-startify'
 Plug 'edluffy/specs.nvim'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 call plug#end()
 

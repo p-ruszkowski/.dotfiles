@@ -1,5 +1,6 @@
 require('n3rd2.lsp')
 require('n3rd2.specs')
+require('n3rd2.cmp')
 
 vim.bo.expandtab = true
 vim.bo.shiftwidth = 4
