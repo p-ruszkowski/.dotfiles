@@ -33,7 +33,9 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'arcticicestudio/nord-vim'
+Plug 'jiangmiao/auto-pairs'
 Plug 'feline-nvim/feline.nvim'
+
 call plug#end()
 
 colorscheme nord
