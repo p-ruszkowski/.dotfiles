@@ -99,5 +99,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias nvim='/home/ppr/nvim.appimage'
-cd ~
+if [[ `uname` == "Darwin" ]]
+then
+    # TBD MACOS CONFIG HERE
+else
+    alias nvim='/home/ppr/nvim.appimage'
+    alias python='python3.10'
+fi
