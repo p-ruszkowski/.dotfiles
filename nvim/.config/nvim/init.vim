@@ -14,6 +14,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
+set termguicolors
 
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
@@ -31,8 +32,11 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
+Plug 'arcticicestudio/nord-vim'
+Plug 'feline-nvim/feline.nvim'
 call plug#end()
 
+colorscheme nord
 set shell=/bin/zsh
 :augroup numbertoggle
 :  autocmd!

@@ -1,6 +1,7 @@
 require('n3rd2.lsp')
 require('n3rd2.specs')
 require('n3rd2.cmp')
+require('feline').setup()
 
 vim.bo.expandtab = true
 vim.bo.shiftwidth = 4
@@ -19,12 +20,13 @@ local keymap = vim.api.nvim_set_keymap
 -- basic mappings 
 keymap('n', "<leader>oo", ":only<CR>", {})
 keymap('n', "<leader>qq", ":q!<CR>", {})
+keymap('n', "<leader>/", ":noh<CR>", {})
 
 keymap('n', "<leader>h", ":wincmd h<CR>", {})
 keymap('n', "<leader>j", ":wincmd j<CR>", {})
 keymap('n', "<leader>k", ":wincmd k<CR>", {})
 keymap('n', "<leader>l", ":wincmd l<CR>", {})
-
+keymap('n', "gb", "<C-O>", {})
 
 -- NERDTree mappings
 keymap('n', "<leader>pt", ":NERDTreeToggle<CR>", {})
@@ -45,3 +47,5 @@ keymap('n', "<leader>ff", ":Telescope find_files<CR>", {})
 keymap('n', "<leader>fg", ":Telescope live_grep<CR>", {})
 keymap('n', "<leader>fh", ":Telescope help_tags<CR>", {})
 
+-- Rust Tools 
+keymap('n', "J", ":RustHoverAction<CR>", {})
