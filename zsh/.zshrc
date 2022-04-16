@@ -106,3 +106,8 @@ else
     alias nvim='/home/ppr/nvim.appimage'
     alias python='python3.10'
 fi
+
+
+alias gs="git status"
+alias gc="git commit"
+alias ga="git add"
