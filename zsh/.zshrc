@@ -105,6 +105,7 @@ then
 else
     alias nvim='/home/ppr/nvim.appimage'
     alias python='python3.10'
+    export PATH=$PATH:/usr/local/go/bin
 fi
 
 alias gs="git status"
