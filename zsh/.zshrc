@@ -103,7 +103,7 @@ if [[ `uname` == "Darwin" ]]
 then
     # TBD MACOS CONFIG HERE
 else
-    alias nvim='/home/ppr/nvim.appimage'
+    alias nvim='~/nvim-linux64/bin/nvim'
     alias python='python3.10'
     export PATH=$PATH:/usr/local/go/bin
     export PATH=$PATH:/usr/local/golsp/bin

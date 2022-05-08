@@ -18,7 +18,6 @@ set termguicolors
 
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
-
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'nvim-lua/plenary.nvim'
@@ -33,7 +32,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'atelierbram/vim-colors_atelier-schemes'
-Plug 'jiangmiao/auto-pairs'
 Plug 'feline-nvim/feline.nvim'
 
 call plug#end()
