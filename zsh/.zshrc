@@ -107,6 +107,7 @@ else
     alias python='python3.10'
     export PATH=$PATH:/usr/local/go/bin
     export PATH=$PATH:/usr/local/golsp/bin
+    export PATH=$PATH:~/.local/bin
 fi
 
 alias gs="git status"

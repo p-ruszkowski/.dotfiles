@@ -31,12 +31,14 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
-Plug 'atelierbram/vim-colors_atelier-schemes'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'feline-nvim/feline.nvim'
 
 call plug#end()
 
-colorscheme Atelier_DuneDark 
+set background=dark
+colorscheme PaperColor
+
 set shell=/bin/zsh
 :augroup numbertoggle
 :  autocmd!
