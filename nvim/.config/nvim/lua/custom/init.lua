@@ -7,7 +7,6 @@ vim.g.mapleader = " "
 vim.api.nvim_set_option("clipboard","unnamed")
 
 require("custom.lazy")
-require("oil").setup()
 require("custom.line_numbers")
 require("custom.lsp")
 require("custom.cmp")
