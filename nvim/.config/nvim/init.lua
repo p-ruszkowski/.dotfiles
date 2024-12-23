@@ -6,10 +6,10 @@ vim.g.mapleader = " "
 -- vim.opt.encoding="utf-8"
 vim.api.nvim_set_option("clipboard","unnamed")
 
-require("custom.lazy")
-require("custom.line_numbers")
-require("custom.lsp")
-require("custom.cmp")
+require("config.lazy")
+require("config.line_numbers")
+require("config.lsp")
+require("config.cmp")
 
 local keymap = vim.api.nvim_set_keymap
 
