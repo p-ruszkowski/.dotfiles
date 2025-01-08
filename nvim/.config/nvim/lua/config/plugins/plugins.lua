@@ -4,13 +4,23 @@ return {
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-        	require('onedark').load()
-        end,
+	    require('onedark').setup {
+		    style = 'warmer'
+		}
+		require('onedark').load()
+	end,
     },
     {
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        opts = {
+            pickers = {
+                find_files = {
+                    hidden = true,
+                },
+            },
+        },
     },
     {
 	"echasnovski/mini.icons",
@@ -34,6 +44,17 @@ return {
 		default_file_explorer = true,
 		view_options = {
 			show_hidden = true,
+		},
+	},
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+	dependencies = { 'nvim-tree/nvim-web-devicons' },
+	opts = {
+		theme = 'powerline_dark',
+		sections = {
+                        lualine_c = {{'filename', path = 1}},
+			lualine_x = {'encoding', 'filetype'},
 		},
 	},
     },

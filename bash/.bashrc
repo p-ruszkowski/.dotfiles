@@ -57,11 +57,13 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | cut -c 3-25 
+  if test -d ".git"; then
+    git branch --no-color | grep \* | cut -c3- 
+  fi
 }
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\[\e[48;5;27m\]\[\e[38;5;15m\][\t] \u@\h\[\e[38;5;27m\]\[\e[48;5;33m\] \[\e[38;5;15m\]\w/ \[\e[38;5;33m\]\[\e[48;5;39m\] \[\e[38;5;15m\]\$(parse_git_branch) \[\e[38;5;39m\]\[\e[48;5;0m\]\[\033[0m\] "
+    PS1="\[\e[48;5;27m\]\[\e[38;5;15m\][\t] \u@\h\[\e[38;5;27m\]\[\e[48;5;33m\] \[\e[38;5;15m\]\w/ \[\e[38;5;33m\]\[\e[48;5;39m\] \[\e[38;5;15m\]⎇  \$(parse_git_branch) \[\e[38;5;39m\]\[\e[48;5;0m\]\[\033[0m\] "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
