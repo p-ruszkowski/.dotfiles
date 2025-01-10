@@ -1,6 +1,7 @@
-vim.bo.expandtab = true
-vim.bo.shiftwidth = 4
-vim.bo.softtabstop = 4
+local set = vim.opt
+set.expandtab = true
+set.shiftwidth = 4
+set.softtabstop = 4
 vim.wo.wrap = false
 vim.g.mapleader = " "
 -- vim.opt.encoding="utf-8"
