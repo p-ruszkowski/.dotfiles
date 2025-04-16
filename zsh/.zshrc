@@ -99,17 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-if [[ `uname` == "Darwin" ]]
-then
-    # TBD MACOS CONFIG HERE
-else
-    alias nvim='~/nvim-linux64/bin/nvim'
-    alias python='python3.10'
-    export PATH=$PATH:/usr/local/go/bin
-    export PATH=$PATH:/usr/local/golsp/bin
-    export PATH=$PATH:~/.local/bin
-fi
-
 alias gs="git status"
 alias gc="git commit"
 alias ga="git add"

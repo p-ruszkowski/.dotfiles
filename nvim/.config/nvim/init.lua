@@ -31,7 +31,13 @@ keymap('n', "<leader>fh", ":Telescope help_tags<CR>", {})
 
 -- keymap("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
-vim.keymap.set("n", "-", function()
+vim.keymap.set("n", "\\", function()
   vim.cmd("vsplit")
+  require("oil").open()
+end)
+
+
+vim.keymap.set("n", "-", function()
+  vim.cmd("split")
   require("oil").open()
 end)
