@@ -11,6 +11,7 @@ require("config.lazy")
 require("config.line_numbers")
 require("config.lsp")
 require("config.cmp")
+require("config.dap")
 
 local keymap = vim.api.nvim_set_keymap
 
@@ -41,3 +42,20 @@ vim.keymap.set("n", "-", function()
   vim.cmd("split")
   require("oil").open()
 end)
+
+vim.cmd("set spell spelllang=en_us")
+vim.cmd("set spell")
+
+vim.api.nvim_create_augroup("AutoFormat", {})
+vim.api.nvim_create_autocmd(
+    "BufWritePost",
+    {
+        pattern = "*.py",
+        group = "AutoFormat",
+        callback = function()
+            vim.cmd("silent !black --quiet %")            
+            vim.cmd("silent !isort --profile=black --line-length=120 %")            
+            vim.cmd("edit")
+        end,
+    }
+)

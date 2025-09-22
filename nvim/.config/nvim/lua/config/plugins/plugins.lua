@@ -1,20 +1,87 @@
 return {
     {
-        "navarasu/onedark.nvim",
+        "Shatur/neovim-ayu",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-	    require('onedark').setup {
-		    style = 'warmer'
+	    require('ayu').setup {
+                    terminal = true,
+                    overrides = {},
 		}
-		require('onedark').load()
+            require('ayu').colorscheme()
 	end,
     },
     {
+        "mfussenegger/nvim-dap",
+        event = "VeryLazy",
+        keys = {
+            {
+              "<leader>db",
+              function() require("dap").toggle_breakpoint() end,
+              desc = "Toggle Breakpoint"
+            },
+
+            {
+              "<leader>dc",
+              function() require("dap").continue() end,
+              desc = "Continue"
+            },
+
+            {
+              "<leader>dC",
+              function() require("dap").run_to_cursor() end,
+              desc = "Run to Cursor"
+            },
+
+            {
+              "<leader>dT",
+              function() require("dap").terminate() end,
+              desc = "Terminate"
+            },
+          },
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "nvim-neotest/nvim-nio",
+            "jay-babu/mason-nvim-dap.nvim",
+            "theHamsta/nvim-dap-virtual-text",
+        },
+    },
+    {
+      "jay-babu/mason-nvim-dap.nvim",
+      ---@type MasonNvimDapSettings
+      opts = {
+        -- This line is essential to making automatic installation work
+        -- :exploding-brain
+        handlers = {},
+        automatic_installation = true,
+        -- DAP servers: Mason will be invoked to install these if necessary.
+        ensure_installed = {
+          "bash",
+          "python",
+        },
+      },
+      dependencies = {
+        "mfussenegger/nvim-dap",
+        "williamboman/mason.nvim",
+      },
+    },
+    {
         'nvim-telescope/telescope.nvim',
-        branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {
+            defaults = {
+             vimgrep_arguments = {
+                            'rg',
+                            '--color=never',
+                            '--no-heading',
+                            '--with-filename',
+                            '--line-number',
+                            '--column',
+                            '--smart-case',
+                            '--no-ignore',   -- <- to ignoruje .gitignore
+                            '--hidden',      -- <- to pozwala przeszukiwać pliki ukryte
+                },
+            },
             pickers = {
                 find_files = {
                     hidden = true,
