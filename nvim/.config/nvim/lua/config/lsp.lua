@@ -1,47 +1,130 @@
-local opts = { noremap=true, silent=true }
-local on_attach = function(client, bufnr)
+vim.lsp.enable({
+    "lua_ls",
+    "pyright",
+    "rust_analyzer",
+    "clangd"
+})
 
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+    callback = function(event)
+        local map = function(keys, func, desc)
+            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-end
+        -- defaults:
+        -- https://neovim.io/doc/user/news-0.11.html#_defaults
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 
-	'rust_analyzer',
-	'pyright',
-	'clangd',
-}
+        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
+        map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+        map("gd", vim.lsp.buf.definition, "Goto Definition")
+        map("<leader>la", vim.lsp.buf.code_action, "Code Action")
+        map("<leader>lr", vim.lsp.buf.rename, "Rename all references")
+        map("<leader>lf", vim.lsp.buf.format, "Format")
+        map("<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
+      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+      vim.keymap.set('i', '<C-Space>', function()
+        vim.lsp.completion.get()
+      end)
+    end
+  end,
+})
 
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-for _, lsp in pairs(servers) do
+-- Diagnostics
+vim.diagnostic.config({
+  -- Use the default configuration
+  -- virtual_lines = true
 
-    require('lspconfig')[lsp].setup {
+  -- Alternatively, customize specific options
+  virtual_lines = {
+    -- Only show virtual line diagnostics for the current cursor line
+    current_line = true,
+  },
+})
 
-        capabilities = capabilities,
-        
-        on_attach = on_attach,
-        
-        flags = {
-            -- This will be the default in neovim 0.7+
-            debounce_text_changes = 150,
-        }
-  }
-
-end
+-- vim.diagnostic.config({
+--     virtual_lines = true,
+--     -- virtual_text = true,
+--     underline = true,
+--     update_in_insert = false,
+--     severity_sort = true,
+--     float = {
+--         border = "rounded",
+--         source = true,
+--     },
+--     signs = {
+--         text = {
+--             [vim.diagnostic.severity.ERROR] = "󰅚 ",
+--             [vim.diagnostic.severity.WARN] = "󰀪 ",
+--             [vim.diagnostic.severity.INFO] = "󰋽 ",
+--             [vim.diagnostic.severity.HINT] = "󰌶 ",
+--         },
+--         numhl = {
+--             [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+--             [vim.diagnostic.severity.WARN] = "WarningMsg",
+--         },
+--     },
+-- })
+-- 
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+--     callback = function(event)
+--         local map = function(keys, func, desc)
+--             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+--         end
+-- 
+--         -- defaults:
+--         -- https://neovim.io/doc/user/news-0.11.html#_defaults
+-- 
+--         map("gl", vim.diagnostic.open_float, "Open Diagnostic Float")
+--         map("K", vim.lsp.buf.hover, "Hover Documentation")
+--         map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
+--         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+--         map("gd", vim.lsp.buf.definition, "Goto Definition")
+--         map("<leader>la", vim.lsp.buf.code_action, "Code Action")
+--         map("<leader>lr", vim.lsp.buf.rename, "Rename all references")
+--         map("<leader>lf", vim.lsp.buf.format, "Format")
+--         map("<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
+-- 
+--         local function client_supports_method(client, method, bufnr)
+--             if vim.fn.has 'nvim-0.11' == 1 then
+--                 return client:supports_method(method, bufnr)
+--             else
+--                 return client.supports_method(method, { bufnr = bufnr })
+--             end
+--         end
+-- 
+--         local client = vim.lsp.get_client_by_id(event.data.client_id)
+--         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+--             local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+-- 
+--             -- When cursor stops moving: Highlights all instances of the symbol under the cursor
+--             -- When cursor moves: Clears the highlighting
+--             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+--                 buffer = event.buf,
+--                 group = highlight_augroup,
+--                 callback = vim.lsp.buf.document_highlight,
+--             })
+--             vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+--                 buffer = event.buf,
+--                 group = highlight_augroup,
+--                 callback = vim.lsp.buf.clear_references,
+--             })
+-- 
+--             -- When LSP detaches: Clears the highlighting
+--             vim.api.nvim_create_autocmd('LspDetach', {
+--                 group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+--                 callback = function(event2)
+--                     vim.lsp.buf.clear_references()
+--                     vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
+--                 end,
+--             })
+--         end
+--     end,
+-- 
+-- })
+-- 

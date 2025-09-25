@@ -6,12 +6,11 @@ vim.wo.wrap = false
 vim.g.mapleader = " "
 -- vim.opt.encoding="utf-8"
 vim.api.nvim_set_option("clipboard","unnamed")
-
+vim.opt.winborder = 'rounded'
 require("config.lazy")
 require("config.line_numbers")
-require("config.lsp")
-require("config.cmp")
 require("config.dap")
+require("config.lsp")
 
 local keymap = vim.api.nvim_set_keymap
 
@@ -59,3 +58,15 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
+
+vim.lsp.config('*', {
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      }
+    }
+  },
+  root_markers = { '.git' },
+})
+

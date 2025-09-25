@@ -1,15 +1,10 @@
 return {
     {
-        "Shatur/neovim-ayu",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
+        "askfiy/visual_studio_code",
+        priority = 100,
         config = function()
-	    require('ayu').setup {
-                    terminal = true,
-                    overrides = {},
-		}
-            require('ayu').colorscheme()
-	end,
+            vim.cmd([[colorscheme visual_studio_code]])
+        end,
     },
     {
         "mfussenegger/nvim-dap",
@@ -118,11 +113,15 @@ return {
         'nvim-lualine/lualine.nvim',
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	opts = {
-		theme = 'powerline_dark',
-		sections = {
-                        lualine_c = {{'filename', path = 1}},
-			lualine_x = {'encoding', 'filetype'},
-		},
+            theme = "visual_studio_code",
+            icons_enabled = true,
+            component_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
+            disabled_filetypes = {},
+            globalstatus = true,
+            refresh = {
+                statusline = 100,
+            },
 	},
     },
     {
@@ -146,12 +145,4 @@ return {
     {
 	'nvim-treesitter/nvim-treesitter',
     },
-    { 'neovim/nvim-lspconfig' },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/cmp-buffer' },
-    { 'hrsh7th/cmp-path' },
-    { 'hrsh7th/cmp-cmdline' },
-    { 'hrsh7th/nvim-cmp' },
-    { 'hrsh7th/cmp-vsnip' },
-    { 'hrsh7th/vim-vsnip' },
 }
