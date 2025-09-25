@@ -97,7 +97,7 @@ return {
 			return package.loaded["nvim-web-devicons"]
 		end
 	end,
-    },   
+    },
     {
 	"stevearc/oil.nvim",
 	lazy = false,
@@ -113,14 +113,16 @@ return {
         'nvim-lualine/lualine.nvim',
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	opts = {
-            theme = "visual_studio_code",
-            icons_enabled = true,
-            component_separators = { left = "", right = "" },
-            section_separators = { left = "", right = "" },
-            disabled_filetypes = {},
-            globalstatus = true,
-            refresh = {
-                statusline = 100,
+            options = {
+                theme = "visual_studio_code",
+                icons_enabled = true,
+                component_separators = { left = "", right = "" },
+                section_separators = { left = "", right = "" },
+                disabled_filetypes = {},
+                globalstatus = true,
+                refresh = {
+                    statusline = 100,
+                },
             },
 	},
     },
@@ -141,7 +143,7 @@ return {
             date_format = "%r [%d-%m-%Y %H:%M:%S]", -- template for the date, check Date format section for more options
             virtual_text_column = 80,  -- virtual text start column, check Start virtual text at column section for more options
         },
-    }, 
+    },
     {
 	'nvim-treesitter/nvim-treesitter',
     },
