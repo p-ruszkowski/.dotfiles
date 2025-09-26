@@ -11,11 +11,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local map = function(keys, func, desc)
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
-
-
         -- defaults:
         -- https://neovim.io/doc/user/news-0.11.html#_defaults
-
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
@@ -24,15 +21,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("<leader>lr", vim.lsp.buf.rename, "Rename all references")
         map("<leader>lf", vim.lsp.buf.format, "Format")
         map("<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
-      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
-      vim.api.nvim_create_autocmd({ "InsertCharPre", "TextChangedI" }, {
-        callback = function()
-            vim.lsp.completion.get()
-        end,
-      })
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+          vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert', 'fuzzy', 'popup' }
+          local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+          client.server_capabilities.completionProvider.triggerCharacters = chars
+
+          vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
         end
   end,
 })
