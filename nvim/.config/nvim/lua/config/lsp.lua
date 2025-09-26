@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
+
         -- defaults:
         -- https://neovim.io/doc/user/news-0.11.html#_defaults
 
@@ -27,10 +28,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
       vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
       vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
-      vim.keymap.set('i', '<C-Space>', function()
-        vim.lsp.completion.get()
-      end)
-    end
+      vim.api.nvim_create_autocmd({ "InsertCharPre", "TextChangedI" }, {
+        callback = function()
+            vim.lsp.completion.get()
+        end,
+      })
+        end
   end,
 })
 
