@@ -33,6 +33,30 @@ return {
               function() require("dap").terminate() end,
               desc = "Terminate"
             },
+            
+            {
+              "<leader>dj",
+              function() require("dap").step_over() end,
+              desc = "Step Over"
+            },
+
+            {
+              "<leader>dl",
+              function() require("dap").step_into() end,
+              desc = "Step Into"
+            },
+
+            {
+              "<leader>dh",
+              function() require("dap").step_out() end,
+              desc = "Step Out"
+            },
+
+            {
+              "<leader>de",
+              function() require("dap").repl.open() end,
+              desc = "Open REPL"
+            },
           },
         dependencies = {
             "rcarriga/nvim-dap-ui",
