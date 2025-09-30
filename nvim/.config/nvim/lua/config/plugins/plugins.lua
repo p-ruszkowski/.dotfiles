@@ -66,7 +66,7 @@ return {
         },
     },
     {
-        "mfussenegger/nvim-dap-python",
+        "theHamsta/nvim-dap-virtual-text"
     },
     {
       "jay-babu/mason-nvim-dap.nvim",
