@@ -42,6 +42,9 @@ return {
         },
     },
     {
+        "mfussenegger/nvim-dap-python",
+    },
+    {
       "jay-babu/mason-nvim-dap.nvim",
       ---@type MasonNvimDapSettings
       opts = {
