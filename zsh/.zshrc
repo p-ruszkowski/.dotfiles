@@ -102,3 +102,14 @@ source $ZSH/oh-my-zsh.sh
 alias gs="git status"
 alias gc="git commit"
 alias ga="git add"
+
+
+export LIBCLANG_PATH="/Users/pete/.rustup/toolchains/esp/xtensa-esp32-elf-clang/esp-20.1.1_20250829/esp-clang/lib"
+export PATH="/Users/pete/.rustup/toolchains/esp/xtensa-esp-elf/esp-15.2.0_20250920/xtensa-esp-elf/bin:$PATH"
+export PATH="/opt/homebrew/opt/ccache/libexec:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+
+alias get_idf='. $HOME/code/esp/esp-idf/export.sh'
